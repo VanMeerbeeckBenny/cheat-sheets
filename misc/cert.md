@@ -1,5 +1,5 @@
 ### create cert
-## create private ca key
+## create private ca key(do not use -aes256 for traefik)
 openssl genrsa -aes256 -out ca-key.pem 4096
 ## create corresponding ca cert
 openssl req -new -x509 -sha256 -days 365 -key ca-key.pem -out ca.pem
@@ -15,9 +15,7 @@ echo "subjectAltName=DNS:*.com.local" >> extfile.
 cat extfile.cnf
 ## generate certificate from the certificate sign request
 openssl x509 -req -sha256 -days 3650 -in cert.csr -CA ca.pem -CAkey ca-key.pem -out cert.pem -extfile extfile.cnf -CAcreateserial
-## create cert en key from it 
-openssl x509 -in cert.pem -out cert.crt
-openssl rsa -in ca-key.pem -out private-key.pem
+
 
 
 
