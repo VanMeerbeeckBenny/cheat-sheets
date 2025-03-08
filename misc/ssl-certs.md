@@ -9,7 +9,7 @@ X.509 is an ITU standard defining the format of public key certificates. X.509 a
 ```bash
 openssl genrsa -aes256 -out ca-key.pem 4096
 ```
-2. Generate a public CA Cert
+2. Generate a public CA Cert(install this one on machine)
 ```bash
 openssl req -new -x509 -sha256 -days 365 -key ca-key.pem -out ca.pem
 ```
@@ -21,7 +21,7 @@ openssl x509 -in ca.pem -purpose -noout -text
 ```
 
 ### Generate Certificate
-1. Create a RSA key
+1. Create a RSA key(key for traefik)
 ```bash
 openssl genrsa -out cert-key.pem 4096
 ```
@@ -37,7 +37,7 @@ echo "subjectAltName=DNS:your-dns.record,IP:257.10.10.1" >> extfile.cnf
 # optional
 echo extendedKeyUsage = serverAuth >> extfile.cnf
 ```
-4. Create the certificate
+4. Create the certificate (cert voor traefik)
 ```bash
 openssl x509 -req -sha256 -days 365 -in cert.csr -CA ca.pem -CAkey ca-key.pem -out cert.pem -extfile extfile.cnf -CAcreateserial
 ```
